@@ -6,12 +6,47 @@
 
 .header-container {
   width: 100%;
-  height: 10vh;
   background-color: $primary;
-  color: $gray;
+  padding: 30px 20px;
+  display: flex;
+  align-items: flex-end;
 
-  //media
-  @include media('<600px') {
-    height: 30vh;
+  span {
+    color: $gray;
+    font-weight: 500;
+  }
+
+  .total-balance {
+    display: flex;
+    flex-direction: column;
+
+    &-text {
+      margin-bottom: 5px;
+    }
+    &-count {
+      font-size: 22px;
+    }
+  }
+
+  .add-token-control {
+    align-self: flex-end;
+    text-align: right;
+    margin-bottom: 7px;
+
+    a {
+      padding: 7px 10px;
+      background-color: lighten($primary, 10%);
+      border-radius: 7px;
+      transition: 0.4s;
+      //font-size: 18px;
+      span + span {
+        margin-left: 5px;
+      }
+      &:hover {
+        background-color: lighten($primary, 5%)
+      }
+    }
   }
 }
+
+
