@@ -17,5 +17,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: $light-dark;
-  color: $gray;
 }
+
+
+::-webkit-scrollbar {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $primary;
+  border-radius: 0 0 7px 7px;
+}
+
+::-webkit-scrollbar-thumb:horizontal{
+  position: fixed;
+  top: 0;
+  background-color: $primary;
+  border-radius: 0 0 7px 7px;
+}
+

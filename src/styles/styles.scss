@@ -4,7 +4,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
 
-.header-container {
+.header {
   width: 100%;
   background-color: $primary;
   padding: 30px 20px;
@@ -23,13 +23,13 @@
     &-text {
       margin-bottom: 5px;
     }
+
     &-count {
       font-size: 22px;
     }
   }
 
   .add-token-control {
-    align-self: flex-end;
     text-align: right;
     margin-bottom: 7px;
 
@@ -38,15 +38,100 @@
       background-color: lighten($primary, 10%);
       border-radius: 7px;
       transition: 0.4s;
-      //font-size: 18px;
+
       span + span {
         margin-left: 5px;
       }
+
       &:hover {
         background-color: lighten($primary, 5%)
       }
     }
   }
 }
+
+.portfolio {
+  .top-bound {
+    position: relative;
+    padding: 30px;
+    background-color: $primary;
+    box-shadow: 2px 0 4px 0 $primary;
+
+    span {
+      color: $gray;
+      font-weight: 500;
+    }
+
+    div:last-of-type {
+      text-align: right;
+    }
+
+    div:nth-child(2) {
+      text-align: center;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      right: -50%;
+      width: 90%;
+      height: 1px;
+      background-color: fade-out($light-dark, 0.7);
+      margin: 0 auto;
+    }
+  }
+  &-overview {
+    transform: translateY(-10px);
+    justify-content: space-around;
+    padding: 0 20px;
+    &-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 10px;
+      min-height: 72px;
+      border-radius: 5px;
+      background-color: $light;
+      box-shadow: 0 0 5px 0 $gray;
+      transition: 0.5s;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+    &-profit, &-cost {
+      text-align: right;
+
+      div:first-child {
+        font-size: 15px;
+        font-weight: 700;
+        color: $primary;
+      }
+      div:last-child {
+        font-size: 16px;
+
+        @include media('<600px') {
+          font-size: 13px;
+          font-weight: 700;
+        }
+      }
+    }
+    &-add {
+      @extend .portfolio-overview-card;
+      margin-top: 16px;
+      justify-content: left;
+      cursor: auto;
+      div {
+        margin-left: 10px;
+        text-align: left;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+
 
 

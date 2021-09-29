@@ -10,8 +10,8 @@ const Header = () => {
     const [isHome, setIsHome] = useState<boolean>(location.pathname === '/');
 
     return (
-        <header className="header-container">
-            <Col xs={12} sm={12} lg={12} className="total-balance">
+        <header className="header">
+            <Col span={12} className="total-balance">
                 <Text className="total-balance-text">
                     Total Balance
                 </Text>
@@ -19,15 +19,15 @@ const Header = () => {
                     $425.25
                 </Text>
             </Col>
-            <Col xs={12} sm={12} lg={12} className="add-token-control">
+            <Col span={12} className="add-token-control">
                 {isHome ?
                     <Link to="/cryptocurrency" onClick={() => setIsHome(false)}>
                         <PlusOutlined/>
                         <Text>Add token</Text>
                     </Link>
                     :
-                    <Link to="/">
-                        <HomeOutlined onClick={() => setIsHome(true)}/>
+                    <Link to="/" onClick={() => setIsHome(true)}>
+                        <HomeOutlined />
                     </Link>
                 }
             </Col>
