@@ -2,12 +2,14 @@ import {combineReducers} from 'redux';
 import thunk from 'redux-thunk'
 import {configureStore} from "@reduxjs/toolkit";
 import {portfolioReducer} from "./reducers/portfolioReducer";
+import {appReducer} from "./reducers/appReducer";
 
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния (редюсера)
 export const rootReducer = combineReducers({
-    portfolio: portfolioReducer
+    portfolio: portfolioReducer,
+    app: appReducer
 })
 // непосредственно создаём store
 

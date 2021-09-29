@@ -1,14 +1,11 @@
 import React from 'react';
-import {Col, Typography, Row, Statistic, Avatar, Button, Tooltip} from 'antd'
+import {Avatar, Button, Col, Row, Statistic, Tooltip} from 'antd'
 import {PlusOutlined} from "@ant-design/icons";
-import ModalCoin from "./common/Modal";
-
-const {Text} = Typography
 
 const Portfolio = () => {
     return (
         <div className="portfolio">
-            <Row justify="space-between" className="top-bound">
+            <div className="top-bound">
                 {/*<Col xs={8} sm={5} lg={5} >*/}
                 {/*    <Text>Your tokens</Text>*/}
                 {/*</Col>*/}
@@ -18,9 +15,8 @@ const Portfolio = () => {
                 {/*<Col xs={8} sm={5} lg={5}>*/}
                 {/*    <Text>Tokens</Text>*/}
                 {/*</Col>*/}
-            </Row>
-            <Row gutter={[16, 16]} justify={"space-between"} className="portfolio-overview">
-                {/*<Col xs={24} sm={5} lg={5}></Col>*/}
+            </div>
+            <Row gutter={[0, 16]} justify={"space-between"} className="portfolio-overview">
                 <Tooltip placement="top" color="blue" title="Click to watch more info">
                     <Col xs={24} sm={11} lg={11} className="portfolio-overview-card">
                         <Avatar className="portfolio-overview-image"
@@ -38,7 +34,7 @@ const Portfolio = () => {
                     </Col>
                 </Tooltip>
             </Row>
-            <Row gutter={[16, 0]} className="portfolio-overview">
+            <Row gutter={[0, 16]} className="portfolio-overview">
                 <Col xs={24} sm={11} lg={11} className="portfolio-overview-add">
                     <Button type="primary" shape="circle" icon={<PlusOutlined/>} />
                     <Statistic  value="Bitcoin, Cardano, Ethereum" title={'Add tokens'} />

@@ -19,10 +19,17 @@ body {
   background-color: $light-dark;
 }
 
+.loader {
+  height: 81vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 ::-webkit-scrollbar {
   width: 0.7rem;
-  height: 0.7rem;
+  height: 1rem;
 }
 
 ::-webkit-scrollbar-track {
