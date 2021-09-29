@@ -82,10 +82,12 @@
       margin: 0 auto;
     }
   }
+
   &-overview {
     transform: translateY(-10px);
     justify-content: space-around;
     padding: 0 20px;
+
     &-card {
       display: flex;
       justify-content: space-between;
@@ -97,10 +99,12 @@
       box-shadow: 0 0 5px 0 $gray;
       transition: 0.5s;
       cursor: pointer;
+
       &:hover {
         transform: scale(1.02);
       }
     }
+
     &-profit, &-cost {
       text-align: right;
 
@@ -109,6 +113,7 @@
         font-weight: 700;
         color: $primary;
       }
+
       div:last-child {
         font-size: 16px;
 
@@ -118,15 +123,88 @@
         }
       }
     }
+
     &-add {
       @extend .portfolio-overview-card;
       margin-top: 16px;
       justify-content: left;
       cursor: auto;
+
       div {
         margin-left: 10px;
         text-align: left;
         font-size: 16px;
+      }
+    }
+  }
+}
+
+.cryptocurrency {
+  margin-top: 20px;
+
+  &-overview {
+    justify-content: space-around;
+    padding: 0 20px;
+
+    &-card {
+      display: flex;
+      align-items: center;
+      padding: 10px 10px;
+      min-height: 72px;
+      border-radius: 5px;
+      background-color: $light;
+      box-shadow: 0 0 5px 0 $gray;
+      transition: 0.5s;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+
+    &-symbol {
+      width: 40%;
+      span + span {
+        margin-left: 5px;
+      }
+      @include media('<600px') {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        span + span {
+          margin-top: 5px;
+        }
+      }
+    }
+
+    &-price {
+      margin-left: auto;
+
+    }
+
+    &-change.low > .ant-statistic-content{
+        color: red!important;
+    }
+    &-change.up > .ant-statistic-content{
+      color: green!important;
+    }
+
+    &-change, &-price {
+      text-align: right;
+
+
+      div:first-child {
+        font-weight: 700;
+        color: $primary;
+      }
+
+      div:last-child, div:first-child {
+        font-size: 16px;
+        @include media('<600px') {
+          align-self: flex-end;
+          font-size: 12px;
+          font-weight: 700;
+        }
       }
     }
   }
