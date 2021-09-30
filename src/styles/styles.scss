@@ -85,7 +85,6 @@
 
   &-overview {
     transform: translateY(-10px);
-    justify-content: space-around;
     padding: 0 20px;
 
     &-card {
@@ -107,7 +106,7 @@
 
     &-profit, &-cost {
       text-align: right;
-
+      width: 35%;
       div:first-child {
         font-size: 15px;
         font-weight: 700;
@@ -170,7 +169,7 @@
       @include media('<600px') {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         span + span {
           margin-top: 5px;
         }
@@ -207,6 +206,55 @@
         }
       }
     }
+  }
+}
+
+.currency {
+  transform: translateY(-10px);
+  width: 80%;
+  min-height: 80vh;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: $light;
+  box-shadow: 0 1px 4px 0 $gray;
+
+  @include media('<600px') {
+    width: 95%;
+  }
+
+  &-transaction-item {
+    display: flex;
+    align-items: center;
+    .ant-statistic-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .ant-statistic-content {
+      font-size: 16px;
+      span {
+        margin: 0 5px;
+      }
+    }
+    button {
+      margin-left: 30px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  &-title {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $light-dark;
+    span {
+      color: $primary;
+    }
+  }
+
+  &-transaction-btn {
+    margin-top: 20px;
   }
 }
 

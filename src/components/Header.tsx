@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Col, Typography} from 'antd'
 import {HomeOutlined, PlusOutlined} from "@ant-design/icons";
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 const {Text} = Typography
 
 const Header = () => {
-    const {location} = useHistory();
+    const location = useLocation();
     const [isHome, setIsHome] = useState<boolean>(location.pathname === '/');
+
+    useEffect(() => {
+        setIsHome(location.pathname === '/')
+    }, [location])
 
     return (
         <header className="header">
@@ -21,7 +25,7 @@ const Header = () => {
             </Col>
             <Col span={12} className="add-token-control">
                 {isHome ?
-                    <Link to="/cryptocurrency" onClick={() => setIsHome(false)}>
+                    <Link to="/cryptocurrencies" onClick={() => setIsHome(false)}>
                         <PlusOutlined/>
                         <Text>Add token</Text>
                     </Link>
