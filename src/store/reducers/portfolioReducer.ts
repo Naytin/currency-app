@@ -35,6 +35,9 @@ const slice = createSlice({
         setFromLocalStorage: (state, action: PayloadAction<CryptoCurrencyListing[]>) => {
             state.portfolio = action.payload
         },
+        deleteCoin: (state, action: PayloadAction<{ id: number }>) => {
+            state.portfolio = state.portfolio.filter(coin => coin.id !== action.payload.id)
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getCoins.fulfilled, (state, action) => {
@@ -44,10 +47,11 @@ const slice = createSlice({
 })
 
 export const portfolio = slice.reducer;
-export const { setCoinToState, setFromLocalStorage } = slice.actions
+export const { setCoinToState, setFromLocalStorage, deleteCoin } = slice.actions
 
 export const portfolioActions = {
     getCoins,
     setCoinToState,
     setFromLocalStorage,
+    deleteCoin
 }

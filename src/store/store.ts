@@ -23,7 +23,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 
-
+//TODO need refactoring #1
 let oldTimeStamp = (Date.now()).valueOf()
 const millisecondsBetween = 1000 // Each X milliseconds
 function updateLocalStorage(newState: CryptoCurrencyListing[])
