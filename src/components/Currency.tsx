@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, memo} from 'react';
 import {useParams} from 'react-router-dom';
 import {Typography, Row, Col, Card, Button, Statistic} from "antd";
 import {CloseOutlined} from '@ant-design/icons';
@@ -8,7 +8,7 @@ import {RootState} from "../store/store";
 import {CryptoCurrencyListing} from "../services/types";
 import ModalTransaction from "./common/ModalTransaction";
 
-const {Text, Title} = Typography
+const {Title} = Typography
 
 interface ParamTypes {
     tokenName: string
@@ -63,4 +63,4 @@ const Currency = () => {
     );
 };
 
-export default Currency;
+export default memo(Currency);

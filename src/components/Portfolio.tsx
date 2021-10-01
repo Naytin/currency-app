@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {Avatar, Button, Col, Row, Statistic, Tooltip} from 'antd'
 import {PlusOutlined} from '@ant-design/icons';
@@ -18,35 +18,37 @@ const Portfolio = () => {
     return (
         <section className="portfolio">
             <div className="top-bound"/>
-            <Row gutter={[0, 16]} justify={"space-between"} className="portfolio-overview">
-                {portfolio.map(coin => (
-                    <Tooltip key={coin.id} placement="top" color="blue" title="Click to watch more info">
-                        <Col xs={24} sm={11} lg={11}>
-                            <Link to={`currency/${coin.name}`} className="portfolio-overview-link">
-                                <div className="portfolio-overview-card">
-                                    <Avatar className="portfolio-overview-image"
-                                            src={defaultImage}/>
-                                    <Statistic prefix={'+'} title={'PROFIT'} value="$0.00"
-                                               className="portfolio-overview-profit"/>
-                                    <Statistic prefix={'$'} title={`0 ${coin.symbol}`}
-                                               value={returnToFixed(coin.quote.USD.price, 2)}
-                                               className="portfolio-overview-cost"/>
-                                </div>
-                            </Link>
-                        </Col>
-                    </Tooltip>
-                ))}
-            </Row>
-            <Row gutter={[0, 16]} className="portfolio-overview">
-                <Col xs={24} sm={24} lg={24} className="portfolio-overview-add">
-                    <Link to='/cryptocurrencies'>
-                        <Button type="primary" shape="circle" icon={<PlusOutlined/>}/>
-                    </Link>
-                    <Statistic value="Bitcoin, Cardano, Ethereum" title={'Add tokens'}/>
-                </Col>
-            </Row>
+            <div className="portfolio-container">
+                <Row gutter={[0, 16]} justify={"space-between"} className="portfolio-overview">
+                    {portfolio.map(coin => (
+                        <Tooltip key={coin.id} placement="top" color="blue" title="Click to watch more info">
+                            <Col span={24}>
+                                <Link to={`currency/${coin.name}`} className="portfolio-overview-link">
+                                    <div className="portfolio-overview-card">
+                                        <Avatar className="portfolio-overview-image"
+                                                src={defaultImage}/>
+                                        <Statistic prefix={'+'} title={'PROFIT'} value="$0.00"
+                                                   className="portfolio-overview-profit"/>
+                                        <Statistic prefix={'$'} title={`0 ${coin.symbol}`}
+                                                   value={returnToFixed(coin.quote.USD.price, 2)}
+                                                   className="portfolio-overview-cost"/>
+                                    </div>
+                                </Link>
+                            </Col>
+                        </Tooltip>
+                    ))}
+                </Row>
+                <Row gutter={[0, 16]} className="portfolio-overview">
+                    <Col xs={24} sm={24} lg={24} className="portfolio-overview-add">
+                        <Link to='/cryptocurrencies'>
+                            <Button type="primary" shape="circle" icon={<PlusOutlined/>}/>
+                        </Link>
+                        <Statistic value="Bitcoin, Cardano, Ethereum" title={'Add tokens'}/>
+                    </Col>
+                </Row>
+            </div>
         </section>
     );
 };
 
-export default Portfolio;
+export default memo(Portfolio);

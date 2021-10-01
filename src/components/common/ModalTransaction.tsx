@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Form, Input, Modal} from 'antd'
 
 interface Values {
@@ -63,4 +63,4 @@ const ModalTransaction = ({visible,
     );
 };
 
-export default ModalTransaction;
+export default memo(ModalTransaction);

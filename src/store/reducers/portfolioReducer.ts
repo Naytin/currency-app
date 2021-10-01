@@ -1,12 +1,7 @@
-import {createAction, createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {CryptoCurrencyListing} from "../../services/types";
 import {coinsApi} from "../../services/api/API";
-import {setAppError, setAppStatus} from "../actions/appActions";
-
-const initialState = {
-    portfolio: [] as CryptoCurrencyListing[],
-    coins: [] as CryptoCurrencyListing[]
-}
+import {setAppError, setAppStatus} from "../commonActions/appActions";
 
 const getCoins = createAsyncThunk('portfolio/getCoins',
     async (arg, {dispatch, rejectWithValue}) => {
@@ -25,28 +20,34 @@ const getCoins = createAsyncThunk('portfolio/getCoins',
         }
     })
 
-export const setCoinToState = createAction('portfolio/set_coin', function prepare(data: CryptoCurrencyListing) {
-    return {payload: data}
-})
-
-export const portfolioActions = {
-    getCoins,
-    setCoinToState,
+const initialState = {
+    portfolio: [] as CryptoCurrencyListing[],
+    coins: [] as CryptoCurrencyListing[]
 }
 
 const slice = createSlice({
     name: "portfolio",
     initialState,
-    reducers: {},
+    reducers: {
+        setCoinToState: (state, action: PayloadAction<CryptoCurrencyListing>) => {
+            state.portfolio.push(action.payload)
+        },
+        setFromLocalStorage: (state, action: PayloadAction<CryptoCurrencyListing[]>) => {
+            state.portfolio = action.payload
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getCoins.fulfilled, (state, action) => {
             state.coins = action.payload.map(coin => coin)
         })
-        builder.addCase(setCoinToState,(state, action) => {
-           state.portfolio.push(action.payload)
-        })
     }
 })
 
-export const portfolioReducer = slice.reducer;
+export const portfolio = slice.reducer;
+export const { setCoinToState, setFromLocalStorage } = slice.actions
 
+export const portfolioActions = {
+    getCoins,
+    setCoinToState,
+    setFromLocalStorage,
+}

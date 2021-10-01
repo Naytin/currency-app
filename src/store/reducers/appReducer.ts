@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {RequestStatusType, setAppError, setAppStatus} from "../actions/appActions";
+import {RequestStatusType, setAppError, setAppStatus} from "../commonActions/appActions";
 
 const initialState = {
     status: 'idle' as RequestStatusType,

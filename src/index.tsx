@@ -7,6 +7,14 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 import {BrowserRouter} from "react-router-dom";
+import {getLocalStorage} from "./services/localStorage/getLocalStorage";
+import {setFromLocalStorage} from "./store/reducers/portfolioReducer";
+
+
+const localState = getLocalStorage()
+if (localState.length > 0) {
+    store.dispatch(setFromLocalStorage(localState))
+}
 
 ReactDOM.render(
     <React.StrictMode>
