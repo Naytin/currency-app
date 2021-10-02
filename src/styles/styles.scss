@@ -69,18 +69,25 @@
       margin: 0 auto;
     }
   }
+
   &-container {
-    padding: 0 20px;
+    padding: 0 50px;
     max-width: 1180px;
     margin: 0 auto;
+    @include media('<600px') {
+      padding: 0 20px;
+    }
   }
+
   &-overview {
     transform: translateY(-10px);
 
-    &-card {
+    &-link {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    &-card {
       padding: 10px 10px;
       min-height: 72px;
       border-radius: 5px;
@@ -92,11 +99,18 @@
       &:hover {
         transform: scale(1.02);
       }
+
+      &:hover > .portfolio-overview-delete {
+        opacity: 1;
+        z-index: 10;
+        left: -15px;
+      }
     }
 
     &-profit, &-cost {
       text-align: right;
       width: 35%;
+
       div:first-child {
         font-size: 15px;
         font-weight: 700;
@@ -105,16 +119,24 @@
 
       div:last-child {
         font-size: 16px;
-
+        font-weight: 700;
         @include media('<600px') {
           font-size: 13px;
-          font-weight: 700;
         }
       }
     }
-
+    &-delete {
+      position: absolute;
+      top: -15px;
+      left: 5px;
+      width: 20px;
+      height: 20px;
+      z-index: -1;
+      opacity: 0;
+    }
     &-add {
       @extend .portfolio-overview-card;
+      @extend .portfolio-overview-link;
       margin-top: 16px;
       justify-content: left;
       cursor: auto;
@@ -153,9 +175,11 @@
 
     &-symbol {
       width: 40%;
+
       span + span {
         margin-left: 5px;
       }
+
       @include media('<600px') {
         display: flex;
         flex-direction: column;
@@ -171,11 +195,12 @@
 
     }
 
-    &-change.low > .ant-statistic-content{
-        color: red!important;
+    &-change.low > .ant-statistic-content {
+      color: red !important;
     }
-    &-change.up > .ant-statistic-content{
-      color: green!important;
+
+    &-change.up > .ant-statistic-content {
+      color: green !important;
     }
 
     &-change, &-price {
@@ -217,21 +242,32 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    .ant-statistic-title {
-      font-size: 18px;
-      font-weight: 600;
+    .ant-statistic {
+      width: 35%;
+      @include media('<768px') {
+        width: 80%;
+      }
     }
-
     .ant-statistic-content {
       font-size: 16px;
+      @include media('<600px') {
+        font-size: 14px;
+      }
+
       span {
         margin: 0 5px;
       }
     }
+
     button {
       margin-left: 30px;
       width: 25px;
       height: 25px;
+      @include media('<600px') {
+        margin-left: auto;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
@@ -239,6 +275,7 @@
     text-align: center;
     padding-bottom: 10px;
     border-bottom: 1px solid $light-dark;
+
     span {
       color: $primary;
     }
@@ -256,7 +293,3 @@
     height: 25px;
   }
 }
-
-
-
-

@@ -1,7 +1,7 @@
-import React, {memo, useEffect, useState, MouseEvent} from 'react';
-import {Redirect, useParams} from 'react-router-dom';
-import {Button, Card, Col, Row, Statistic, Typography} from "antd";
-import {CloseOutlined} from '@ant-design/icons';
+import React, {memo, useState} from 'react';
+import {Redirect, useParams, Link} from 'react-router-dom';
+import {Button, Card, Col, Modal, Row, Statistic, Typography} from "antd";
+import {CloseOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
 import {selectCurrency} from "../store/selectors";
 import {useSelector} from "react-redux";
 import {RootState} from "../store/store";
@@ -11,30 +11,34 @@ import {useActions} from "../hooks/useActions";
 import {portfolioActions} from "../store/reducers/portfolioReducer";
 
 const {Title} = Typography
+const { confirm } = Modal;
 
 interface ParamTypes {
     tokenName: string
 }
 
 const Currency = () => {
-
     const [visible, setVisible] = useState(false);
     const {tokenName} = useParams<ParamTypes>()
-    const {deleteCoin, addTransaction, deleteTransaction} = useActions(portfolioActions)
+    const {addTransaction, deleteTransaction} = useActions(portfolioActions)
     const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName))
 
-    const deleteTransactionHandler = (uuid: string) => {
-        deleteTransaction({uuid, id: asset[0].id})
-    }
-
-    const onCreate = (values: {coins: number, cost: number}) => {
-        console.log('Received values of form: ', values);
+    const createTransaction = (values: {coins: number, cost: number}) => {
         addTransaction({id: asset[0].id, ...values})
         setVisible(false);
     };
 
-    function deleteCoinHandler() {
-        deleteCoin({id: asset[0].id});
+    function showConfirm(uuid: string) {
+        confirm({
+            title: 'Do you Want to delete this item?',
+            icon: <ExclamationCircleOutlined />,
+            onOk() {
+                deleteTransaction({uuid, id: asset[0].id})
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
     }
 
     if (asset.length === 0) {
@@ -44,7 +48,9 @@ const Currency = () => {
     return (
         <section className="currency">
             <Title level={4} className="currency-title"><span>{asset[0].symbol}</span> ({asset[0].name})</Title>
-            <Button className="currency-delete-btn" type="primary" icon={<CloseOutlined/>} onClick={deleteCoinHandler}/>
+            <Link to="/">
+                <Button className="currency-delete-btn" type="primary" icon={<CloseOutlined/>} />
+            </Link>
             <Row gutter={[16, 16]}>
                 <Col span={24}>
                     <Title level={5}>TRANSACTIONS</Title>
@@ -57,7 +63,7 @@ const Currency = () => {
                                                suffix={`${tran.cost}`}/>
                                     <Button type="primary"
                                             icon={<CloseOutlined/>}
-                                            onClick={(e) => deleteTransactionHandler(tran.uuid)}/>
+                                            onClick={() => showConfirm(tran.uuid)}/>
                                 </div>
                             )) :
                             <Title level={5}>You don't have a transaction yet. Create a transaction for {asset[0].name}
@@ -70,7 +76,7 @@ const Currency = () => {
             </Row>
 
             <ModalTransaction visible={visible}
-                              onCreate={onCreate}
+                              onCreate={createTransaction}
                               title={asset[0].name}
                               onCancel={() => {
                                   setVisible(false);

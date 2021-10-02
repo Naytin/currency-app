@@ -27,7 +27,7 @@ const Header = () => {
                 {isHome ?
                     <Link to="/cryptocurrencies" onClick={() => setIsHome(false)}>
                         <PlusOutlined/>
-                        <Text>Add token</Text>
+                        <Text>Add tokens</Text>
                     </Link>
                     :
                     <Link to="/" onClick={() => setIsHome(true)}>
