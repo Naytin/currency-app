@@ -28,8 +28,7 @@ let oldTimeStamp = (Date.now()).valueOf()
 const millisecondsBetween = 1000 // Each X milliseconds
 function updateLocalStorage(newState: CryptoCurrencyListing[])
 {
-    if(((Date.now()).valueOf() - oldTimeStamp) > millisecondsBetween)
-    {
+    if (((Date.now()).valueOf() - oldTimeStamp) > millisecondsBetween) {
         saveState(newState)
         oldTimeStamp = (Date.now()).valueOf()
     }

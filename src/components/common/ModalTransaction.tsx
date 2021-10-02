@@ -2,9 +2,8 @@ import React, {memo} from 'react';
 import {Form, Input, Modal} from 'antd'
 
 interface Values {
-    title: string;
-    description: string;
-    modifier: string;
+    coins: number;
+    cost: number
 }
 
 interface CollectionCreateFormProps {
@@ -46,17 +45,19 @@ const ModalTransaction = ({visible,
                 initialValues={{ modifier: 'public' }}
             >
                 <Form.Item
-                    name="coin"
+                    name="coins"
                     label="Count of coin"
-                    rules={[{ required: true, message: 'Please input the count of coin' }]}
+                    rules={[{ required: true, pattern: new RegExp("^([,|.]?[0-9])+$"),
+                        message: 'Please input the count of coins' }]}
                 >
-                    <Input />
+                    <Input placeholder="example - 0.054"/>
                 </Form.Item>
                 <Form.Item name="cost"
                            label="Cost of one coin"
-                           rules={[{ required: true, message: 'Please input the cost of coin' }]}
+                           rules={[{ required: true, pattern: new RegExp("^([,|.]?[0-9])+$"),
+                               message: 'Please input the cost of coins' }]}
                 >
-                    <Input type="textarea" />
+                    <Input type="textarea" placeholder="example - 45200"/>
                 </Form.Item>
             </Form>
         </Modal>

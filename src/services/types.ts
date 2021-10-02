@@ -14,6 +14,25 @@ export type CmcStatus = {
     total_count: number;
 };
 
+export type TransactionType = {
+    id: number;
+    uuid: string;
+    coins: number;
+    cost: number;
+}
+
+export type ProfitType = {
+    id: number;
+    coins: number;
+    cost: number;
+    value: number;
+    profit: string;
+    percentage: number;
+    actualPrice: string;
+    changes24h: number;
+    changes: boolean;
+};
+
 export type CryptoCurrencyListing = {
     id: number;
     name: string;
@@ -28,6 +47,7 @@ export type CryptoCurrencyListing = {
     date_added: string;
     tags: string[];
     platform: unknown;
+    transactions: TransactionType[];
     quote: Record<
         string,
         {

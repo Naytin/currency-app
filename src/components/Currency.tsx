@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect, useState, MouseEvent} from 'react';
 import {Redirect, useParams} from 'react-router-dom';
 import {Button, Card, Col, Row, Statistic, Typography} from "antd";
 import {CloseOutlined} from '@ant-design/icons';
@@ -17,52 +17,55 @@ interface ParamTypes {
 }
 
 const Currency = () => {
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const {tokenName} = useParams<ParamTypes>()
-    const {deleteCoin} = useActions(portfolioActions)
-    const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName))
-
-    let timeId: NodeJS.Timeout
-    //TODO need refactoring #2
-    const loadingHandle = () => {
-        setIsLoading(true)
-        timeId = setTimeout(() => setIsLoading(false), 2000)
-    }
-
-    useEffect(() => {
-        clearTimeout(timeId)
-    }, [isLoading])
 
     const [visible, setVisible] = useState(false);
+    const {tokenName} = useParams<ParamTypes>()
+    const {deleteCoin, addTransaction, deleteTransaction} = useActions(portfolioActions)
+    const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName))
 
-    const onCreate = (values: any) => {
+    const deleteTransactionHandler = (uuid: string) => {
+        deleteTransaction({uuid, id: asset[0].id})
+    }
+
+    const onCreate = (values: {coins: number, cost: number}) => {
         console.log('Received values of form: ', values);
+        addTransaction({id: asset[0].id, ...values})
         setVisible(false);
     };
 
-    function deleteAsset() {
+    function deleteCoinHandler() {
         deleteCoin({id: asset[0].id});
     }
 
-    if (asset.length === 0)  {
+    if (asset.length === 0) {
         return <Redirect to="/"/>
     }
 
     return (
         <section className="currency">
             <Title level={4} className="currency-title"><span>{asset[0].symbol}</span> ({asset[0].name})</Title>
-            <Button className="currency-delete-btn" type="primary" icon={<CloseOutlined/>} onClick={deleteAsset}/>
+            <Button className="currency-delete-btn" type="primary" icon={<CloseOutlined/>} onClick={deleteCoinHandler}/>
             <Row gutter={[16, 16]}>
                 <Col span={24}>
                     <Title level={5}>TRANSACTIONS</Title>
                     <Card title="COINS">
-                        <div className="currency-transaction-item">
-                            <Statistic prefix={asset[0].symbol} title={''} value={'(0.054) -'} suffix={"$503.20"}/>
-                            <Button type="primary" icon={<CloseOutlined/>} loading={isLoading} onClick={loadingHandle}/>
-                        </div>
-                        {/*<Title level={5}>You don't have a transaction yet. Create a transaction for {name}</Title>*/}
+                        {asset[0].transactions.length ? asset[0].transactions.map(tran => (
+                                <div key={tran.uuid} className="currency-transaction-item">
+                                    <Statistic prefix={asset[0].symbol}
+                                               title={''}
+                                               value={`(${tran.coins}) -`}
+                                               suffix={`${tran.cost}`}/>
+                                    <Button type="primary"
+                                            icon={<CloseOutlined/>}
+                                            onClick={(e) => deleteTransactionHandler(tran.uuid)}/>
+                                </div>
+                            )) :
+                            <Title level={5}>You don't have a transaction yet. Create a transaction for {asset[0].name}
+                            </Title>}
                     </Card>
-                    <Button color="red" className="currency-transaction-btn" onClick={() => setVisible(true)}>Add transaction</Button>
+                    <Button color="red"
+                            className="currency-transaction-btn"
+                            onClick={() => setVisible(true)}>Add transaction</Button>
                 </Col>
             </Row>
 
