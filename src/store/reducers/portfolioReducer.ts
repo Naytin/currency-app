@@ -21,6 +21,24 @@ const getCoins = createAsyncThunk('portfolio/getCoins',
         }
     })
 
+const getCoinsById = createAsyncThunk('portfolio/getCoinsById',
+    async (id: string, {dispatch, rejectWithValue}) => {
+        dispatch(setAppStatus({status: 'loading'}))
+        try {
+            const res = await coinsApi.getCurrentPrice(id)
+            dispatch(setAppStatus({status: 'succeeded'}))
+            console.log('updated data', res.data)
+            return res.data;
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                const {message} = error as Error
+                dispatch(setAppStatus({status: 'failed'}))
+                dispatch(setAppError({error: message}))
+            }
+            return rejectWithValue(null)
+        }
+    })
+
 const initialState = {
     portfolio: [] as CryptoCurrencyListing[],
     coins: [] as CryptoCurrencyListing[]
@@ -64,6 +82,10 @@ const slice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getCoins.fulfilled, (state, action) => {
             state.coins = action.payload.map(coin => coin)
+        });
+        builder.addCase(getCoinsById.fulfilled, (state, action) => {
+            console.log('updated',action.payload)
+            state.portfolio = state.portfolio.map(coin => ({...coin, quote: action.payload[coin.id].quote}))
         })
     }
 })
@@ -73,6 +95,7 @@ export const {setCoinToState, setFromLocalStorage, deleteCoin,addTransaction,del
 
 export const portfolioActions = {
     getCoins,
+    getCoinsById,
     setCoinToState,
     setFromLocalStorage,
     deleteCoin,

@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Header, Portfolio, Cryptocurrencies, Currency} from "./components";
 
 function App() {
+    console.log('reload app')
   return (
     <div className="App">
         <Header />

@@ -14,4 +14,8 @@ export const coinsApi = {
         return instance.get<ResponseCoinsType>(`/listings/latest`)
             .then(res => res.data)
     },
+    getCurrentPrice(id: string) {
+        return instance.get<ResponseCoinsType>(`/quotes/latest?id=${id}`)
+            .then(res => res.data)
+    },
 }

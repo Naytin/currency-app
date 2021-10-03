@@ -14,9 +14,9 @@ const calculationOfProfit = (
 ) => {
     const {price, percent_change_24h} = quote.USD
     const numberOfCoins = reduceValue(transaction.map((tr) => +tr.coins));
-    const totalValue = returnToFixed(reduceValue(transaction.map(tr => +tr.coins * price)),3);
+    const totalValue = returnToFixed(reduceValue(transaction.map(tr => +tr.coins * price)),2);
     const cost = reduceValue(transaction.map(tr => +tr.coins * +tr.cost));
-    const profit = returnToFixed(totalValue - cost, 3);
+    const profit = returnToFixed(totalValue - cost, 2);
     const percentage = returnToFixed(checkCost(totalValue, cost),2);
     const changes24h = percent_change_24h;
     const changes = percentage >= 0;

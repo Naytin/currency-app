@@ -1,9 +1,9 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Avatar, Button, Col, Modal, Row, Statistic, Tooltip} from 'antd'
 import {CloseOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import {useTypedSelector} from "../hooks/storeHooks";
-import {selectApp, selectPortfolio} from "../store/selectors";
+import {selectAllIds, selectApp, selectPortfolio} from "../store/selectors";
 import Loader from "./common/Loader";
 import {returnToFixed} from "../services/helpers";
 import {useActions} from "../hooks/useActions";
@@ -14,8 +14,20 @@ const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnCL
 
 const Portfolio = () => {
     const {portfolio} = useTypedSelector(selectPortfolio)
+    const ids = useTypedSelector(selectAllIds)
     const {status} = useTypedSelector(selectApp)
-    const {deleteCoin} = useActions(portfolioActions)
+    const {deleteCoin, getCoinsById} = useActions(portfolioActions)
+    console.log(portfolio)
+    console.log('restart')
+    useEffect(() => {
+        let timeId: NodeJS.Timeout;
+
+        if (ids) {
+            timeId = setInterval(() => getCoinsById(ids), 60000);
+        }
+
+        return () => clearInterval(timeId);
+    }, [ids])
 
     function showConfirm(id: number) {
         confirm({
