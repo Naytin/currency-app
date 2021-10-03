@@ -95,15 +95,16 @@
       box-shadow: 0 0 5px 0 $gray;
       transition: 0.5s;
       cursor: pointer;
-
+      z-index: 5;
       &:hover {
         transform: scale(1.02);
       }
 
       &:hover > .portfolio-overview-delete {
         opacity: 1;
-        z-index: 10;
+        z-index: 2;
         left: -15px;
+        top: -15px;
       }
     }
 
@@ -127,11 +128,11 @@
     }
     &-delete {
       position: absolute;
-      top: -15px;
+      top: 5px;
       left: 5px;
       width: 20px;
       height: 20px;
-      z-index: -1;
+      z-index: -2;
       opacity: 0;
     }
     &-add {
@@ -169,7 +170,7 @@
       cursor: pointer;
 
       &:hover {
-        transform: scale(1.02);
+        transform: scale(1.01);
       }
     }
 

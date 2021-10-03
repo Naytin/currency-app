@@ -1,32 +1,50 @@
-import {CryptoCurrencyListing, TransactionType} from "./types";
+import {CryptoCurrencyListing, QuoteType, TransactionType} from "./types";
 
-type PropsType = {
-    coin: CryptoCurrencyListing[]
-    action: {id: number, cost: number, coins: number,}
-}
+export const countProfit = (coins: CryptoCurrencyListing[]) => {
 
-export const countProfit = ({coin, action}: PropsType) => {
-    return coin.map((elem) =>
-        calculationOfProfit(elem, action)
+    return coins.map((coin) =>
+        ({...coin, profit: calculationOfProfit(coin.transactions, coin.quote, coin.id)})
+
     );
 }
 
 const calculationOfProfit = (
-    coin: CryptoCurrencyListing,
-    action: {id: number, cost: number, coins: number,}
+    transaction: TransactionType[],
+    quote: QuoteType,
+    id: number
 ) => {
-    const {quote} = coin;
-    const {price} = quote.USD
-    // return {
-    //     id,
-    //     holdings,
-    //     cost,
-    //     value,
-    //     profit,
-    //     percentage,
-    //     changes24h,
-    //     actualPrice,
-    //     changes,
-    // };
+    const {price, percent_change_24h} = quote.USD
+    const numberOfCoins = reduceValue(transaction.map((tr) => +tr.coins));
+    const coinValue = reduceValue(transaction.map(tr => +tr.cost));
+    const cost = reduceValue(transaction.map(tr => +tr.coins * +tr.cost))
+    const profit = reduceValue(transaction.map(tr => +tr.coins * price))
+    const percentage = checkCost(cost, cost);
+    const changes24h = percent_change_24h;
+    const changes = changes24h >= 0;
+
+    return {
+        id,
+        numberOfCoins,
+        coinValue,
+        cost,
+        profit,
+        percentage,
+        changes24h,
+        price,
+        changes,
+    };
 };
 
+
+const reduceValue = (arr: Array<number>) => {
+    if (arr.length === 0) return 0
+
+    return arr.reduce((acc, cur) => acc + cur, 0)
+}
+
+const checkCost = (value: number, cost: number) => {
+    if (cost === 0) return cost;
+    const division = value / cost;
+
+    return (division - 1) * 100;
+};

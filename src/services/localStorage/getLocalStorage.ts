@@ -1,8 +1,8 @@
 import {CryptoCurrencyListing} from "../types";
 
-export const getLocalStorage = (): CryptoCurrencyListing[] => {
+export const getLocalStorage = (name: string): CryptoCurrencyListing[] => {
     if (typeof window !== 'undefined') {
-        const storage = window.localStorage.getItem('portfolio');
+        const storage = window.localStorage.getItem(name);
 
         return  storage === null ? [] as CryptoCurrencyListing[] : JSON.parse(storage);
     }

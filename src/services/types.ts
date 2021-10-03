@@ -23,15 +23,29 @@ export type TransactionType = {
 
 export type ProfitType = {
     id: number;
-    coins: number;
+    numberOfCoins: number;
+    coinValue: number;
     cost: number;
-    value: number;
-    profit: string;
+    profit: number;
     percentage: number;
-    actualPrice: string;
+    price: number;
     changes24h: number;
     changes: boolean;
 };
+
+export type QuoteType = Record<
+    string,
+    {
+        price: number;
+        volume_24h: number;
+        percent_change_1h: number;
+        percent_change_24h: number;
+        percent_change_7d: number;
+        percent_change_30d: number;
+        market_cap: number;
+        last_updated: string;
+    }
+    >;
 
 export type CryptoCurrencyListing = {
     id: number;
@@ -48,16 +62,6 @@ export type CryptoCurrencyListing = {
     tags: string[];
     platform: unknown;
     transactions: TransactionType[];
-    quote: Record<
-        string,
-        {
-            price: number;
-            volume_24h: number;
-            percent_change_1h: number;
-            percent_change_24h: number;
-            percent_change_7d: number;
-            market_cap: number;
-            last_updated: string;
-        }
-        >;
+    profit: ProfitType
+    quote: QuoteType
 };

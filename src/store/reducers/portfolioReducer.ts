@@ -44,11 +44,10 @@ const slice = createSlice({
                 {...coin, transactions: [...coin.transactions, {...action.payload, uuid: uuid()}]} : coin)
         },
         deleteTransaction: (state, action: PayloadAction<{ uuid: string, id: number }>) => {
-            const result = state.portfolio.map((elem) => ({
+            state.portfolio  = state.portfolio.map((elem) => ({
                 ...elem, transactions: elem.transactions.filter(
                     (trans) => trans.uuid !== action.payload.uuid),
             }));
-            state.portfolio = result
         },
     },
     extraReducers: (builder) => {
