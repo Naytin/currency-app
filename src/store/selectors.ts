@@ -4,6 +4,7 @@ import {createDraftSafeSelector} from "@reduxjs/toolkit";
 import {reduceValue, returnToFixed} from "../services/helpers";
 
 export const selectPortfolio = (state: RootState) => state.portfolio
+// return of the sum of all assets
 export const selectTotalProfit = createDraftSafeSelector(
     selectPortfolio, (state) =>  {
         if (state.portfolio.length) {
@@ -13,6 +14,8 @@ export const selectTotalProfit = createDraftSafeSelector(
         }
     }
 )
+
+// return all ids from portfolio as string "1,2,224"
 export const selectAllIds  = createDraftSafeSelector(
     selectPortfolio, (state) =>  {
         if (state.portfolio.length) {

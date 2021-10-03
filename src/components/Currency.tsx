@@ -18,10 +18,14 @@ interface ParamTypes {
 }
 
 const Currency = () => {
+    //local state
     const [visible, setVisible] = useState(false);
-    const {tokenName} = useParams<ParamTypes>()
-    const {addTransaction, deleteTransaction} = useActions(portfolioActions)
-    const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName))
+    //hook useParams returns an object of key/value pairs of URL parameters.
+    const {tokenName} = useParams<ParamTypes>();
+    //use actions
+    const {addTransaction, deleteTransaction} = useActions(portfolioActions);
+    //use Selector
+    const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName));
 
     const createTransaction = (values: {coins: number, cost: number}) => {
         addTransaction({id: asset[0].id, ...values})

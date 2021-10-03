@@ -13,7 +13,6 @@ interface CollectionCreateFormProps {
     title: string
 }
 
-
 const ModalTransaction = ({visible,
                               onCreate,
                               onCancel, title}: CollectionCreateFormProps) => {

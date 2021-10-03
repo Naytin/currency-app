@@ -11,16 +11,19 @@ import {returnToFixed} from "../services/helpers";
 const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnCL1sMQf-CBs21lUpMRnEqduXQW_-lt49iA&usqp=CAU'
 
 const Cryptocurrencies = () => {
+    //local state
+    const [filteredCoins, setFilteredCoins] = useState<CryptoCurrencyListing[]>([])
+    //use selectors
     const {coins, portfolio} = useTypedSelector(selectPortfolio)
     const {status} = useTypedSelector(selectApp)
+    //use actions
     const {getCoins, setCoinToState} = useActions(portfolioActions)
-    const [filteredCoins, setFilteredCoins] = useState<CryptoCurrencyListing[]>([])
 
     useEffect(() => {
         if (!coins.length) {
             getCoins()
         }
-    }, [])
+    }, [coins])
 
     useEffect(() => {
         const filtered = coins.filter(hasCoin => !portfolio.some(coin => hasCoin.id === coin.id))

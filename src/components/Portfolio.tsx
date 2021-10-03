@@ -13,12 +13,13 @@ const {confirm} = Modal;
 const defaultImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnCL1sMQf-CBs21lUpMRnEqduXQW_-lt49iA&usqp=CAU'
 
 const Portfolio = () => {
+    //use selectors
     const {portfolio} = useTypedSelector(selectPortfolio)
     const ids = useTypedSelector(selectAllIds)
     const {status} = useTypedSelector(selectApp)
+    //actions
     const {deleteCoin, getCoinsById} = useActions(portfolioActions)
-    console.log(portfolio)
-    console.log('restart')
+
     useEffect(() => {
         let timeId: NodeJS.Timeout;
 

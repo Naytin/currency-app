@@ -27,7 +27,6 @@ const getCoinsById = createAsyncThunk('portfolio/getCoinsById',
         try {
             const res = await coinsApi.getCurrentPrice(id)
             dispatch(setAppStatus({status: 'succeeded'}))
-            console.log('updated data', res.data)
             return res.data;
         } catch (error: unknown) {
             if (error instanceof Error) {
@@ -84,7 +83,6 @@ const slice = createSlice({
             state.coins = action.payload.map(coin => coin)
         });
         builder.addCase(getCoinsById.fulfilled, (state, action) => {
-            console.log('updated',action.payload)
             state.portfolio = state.portfolio.map(coin => ({...coin, quote: action.payload[coin.id].quote}))
         })
     }

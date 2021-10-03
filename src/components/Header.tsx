@@ -8,8 +8,11 @@ import {selectTotalProfit} from "../store/selectors";
 const {Text} = Typography
 
 const Header = () => {
+    //The useLocation hook returns the location object that represents the current URL
     const location = useLocation();
+    //local state
     const [isHome, setIsHome] = useState<boolean>(location.pathname === '/');
+    //use selector
     const totalBalance = useTypedSelector(selectTotalProfit);
 
     useEffect(() => {

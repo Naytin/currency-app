@@ -18,7 +18,7 @@ if (localState.length > 0) {
     const calculatedProfit = countProfit(localState)
     store.dispatch(setFromLocalStorage(calculatedProfit))
 }
-console.log('reload index')
+
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
