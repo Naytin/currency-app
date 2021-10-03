@@ -31,7 +31,18 @@ const slice = createSlice({
     initialState,
     reducers: {
         setCoinToState: (state, action: PayloadAction<CryptoCurrencyListing>) => {
-            state.portfolio.push({...action.payload, transactions: []})
+            const profit = {
+                id: action.payload.id,
+                numberOfCoins: 0,
+                totalValue: 0,
+                cost: 0,
+                profit: 0,
+                percentage: 0,
+                changes24h: 0,
+                price: 0,
+                changes: true,
+            };
+            state.portfolio.push({...action.payload, transactions: [], profit: profit })
         },
         setFromLocalStorage: (state, action: PayloadAction<CryptoCurrencyListing[]>) => {
             state.portfolio = action.payload

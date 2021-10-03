@@ -108,7 +108,7 @@
       }
     }
 
-    &-profit, &-cost {
+    &-profit, &-cost, &-total {
       text-align: right;
       width: 35%;
 
@@ -124,6 +124,19 @@
         @include media('<600px') {
           font-size: 13px;
         }
+      }
+    }
+    &-profit-mod.short  {
+      color: red !important;
+    }
+
+    &-profit-mod.long {
+        color: green !important;
+    }
+
+    &-total {
+      @include media('<600px') {
+        display: none;
       }
     }
     &-delete {
@@ -196,11 +209,11 @@
 
     }
 
-    &-change.low > .ant-statistic-content {
+    &-change.short > .ant-statistic-content {
       color: red !important;
     }
 
-    &-change.up > .ant-statistic-content {
+    &-change.long > .ant-statistic-content {
       color: green !important;
     }
 

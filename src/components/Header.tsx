@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Col, Typography} from 'antd'
 import {HomeOutlined, PlusOutlined} from "@ant-design/icons";
 import {Link, useLocation} from 'react-router-dom';
+import {useTypedSelector} from "../hooks/storeHooks";
+import {selectTotalProfit} from "../store/selectors";
 
 const {Text} = Typography
 
 const Header = () => {
     const location = useLocation();
     const [isHome, setIsHome] = useState<boolean>(location.pathname === '/');
+    const totalBalance = useTypedSelector(selectTotalProfit);
 
     useEffect(() => {
         setIsHome(location.pathname === '/')
@@ -20,7 +23,7 @@ const Header = () => {
                     Total Balance
                 </Text>
                 <Text className="total-balance-count">
-                    $425.25
+                    $ {totalBalance}
                 </Text>
             </Col>
             <Col span={12} className="add-token-control">

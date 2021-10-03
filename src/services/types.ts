@@ -24,7 +24,7 @@ export type TransactionType = {
 export type ProfitType = {
     id: number;
     numberOfCoins: number;
-    coinValue: number;
+    totalValue: number;
     cost: number;
     profit: number;
     percentage: number;

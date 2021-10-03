@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {Avatar, Button, Col, Modal, Row, Statistic, Tooltip} from 'antd'
-import {CloseOutlined, ExclamationCircleOutlined, PlusOutlined, DollarOutlined} from '@ant-design/icons';
+import {CloseOutlined, ExclamationCircleOutlined, PlusOutlined} from '@ant-design/icons';
 import {useTypedSelector} from "../hooks/storeHooks";
 import {selectApp, selectPortfolio} from "../store/selectors";
 import Loader from "./common/Loader";
@@ -51,12 +51,17 @@ const Portfolio = () => {
                                         <Avatar className="portfolio-overview-image"
                                                 src={defaultImage}/>
                                         <Statistic title={'TOTAL VALUE'}
-                                                   value="$0.00"
-                                                   className="portfolio-overview-profit"/>
-                                        <Statistic prefix={''} title={'PROFIT/LOSS'} suffix={<DollarOutlined/>}
-                                                   value="0"
-                                                   className="portfolio-overview-profit"/>
-                                        <Statistic prefix={'$'} title={`0 ${coin.symbol}`}
+                                                   value={coin.profit.totalValue}
+                                                   className="portfolio-overview-total"/>
+                                        <Statistic prefix={coin.profit.profit
+                                            ? <span className={`portfolio-overview-profit-mod 
+                                            ${coin.profit.changes ? 'long' : 'short'}`}>+{coin.profit.percentage}%</span>
+                                            : ''}
+                                                   title={'PROFIT/LOSS'}
+                                                   value={`$${coin.profit.profit}`}
+                                                   className={`portfolio-overview-profit`}/>
+                                        <Statistic prefix={'$'}
+                                                   title={`${coin.profit.numberOfCoins} ${coin.symbol}`}
                                                    value={returnToFixed(coin.quote.USD.price, 2)}
                                                    className="portfolio-overview-cost"/>
                                     </Link>

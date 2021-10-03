@@ -52,7 +52,7 @@ const Cryptocurrencies = () => {
                                        title={'CHANGES 24H'}
                                        value={returnToFixed(coin.quote.USD.percent_change_24h,2) + '%'}
                                        className={`cryptocurrency-overview-change 
-                                       ${coin.quote.USD.percent_change_24h < 0 ? 'low' : 'up'}`}/>
+                                       ${coin.quote.USD.percent_change_24h < 0 ? 'short' : 'long'}`}/>
                             <Statistic prefix={'$'} title={'PRICE'} value={returnToFixed(coin.quote.USD.price, 2)}
                                        className="cryptocurrency-overview-price"/>
                         </Col>

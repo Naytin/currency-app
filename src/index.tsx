@@ -16,6 +16,7 @@ const localState = getLocalStorage('portfolio')
 if (localState.length > 0) {
     //countProfit - function that calculates all coins, profits, changes and packs into an object
     const calculatedProfit = countProfit(localState)
+    console.log('get')
     store.dispatch(setFromLocalStorage(calculatedProfit))
 }
 
