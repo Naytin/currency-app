@@ -17,14 +17,19 @@ const Portfolio = () => {
     const {portfolio} = useTypedSelector(selectPortfolio)
     const ids = useTypedSelector(selectAllIds)
     const {status} = useTypedSelector(selectApp)
-    //actions
-    const {deleteCoin, getCoinsById} = useActions(portfolioActions)
+    //use actions
+    const {deleteCoin, getCoinsById, updateDataFromLS} = useActions(portfolioActions)
 
     useEffect(() => {
         let timeId: NodeJS.Timeout;
-
         if (ids) {
-            timeId = setInterval(() => getCoinsById(ids), 60000);
+            const update = () => {
+                getCoinsById(ids)
+                updateDataFromLS()
+            }
+            timeId = setInterval(() => {
+                update()
+            }, 60000);
         }
 
         return () => clearInterval(timeId);
@@ -43,8 +48,7 @@ const Portfolio = () => {
             },
         });
     }
-
-    if (status === 'loading') return <Loader/>
+    if (status === 'loading' && ids === null) return <Loader/>
 
     return (
         <section className="portfolio">
@@ -66,12 +70,12 @@ const Portfolio = () => {
                                         <Statistic title={'TOTAL VALUE'}
                                                    value={coin.profit.totalValue}
                                                    className="portfolio-overview-total"/>
-                                        <Statistic prefix={coin.profit.profit
+                                        <Statistic prefix={coin.profit.totalValue
                                             ? <span className={`portfolio-overview-profit-mod 
-                                            ${coin.profit.changes ? 'long' : 'short'}`}>+{coin.profit.percentage}%</span>
+                                            ${coin.profit.changes ? 'long' : 'short'}`}>{coin.profit.percentage}%</span>
                                             : ''}
                                                    title={'PROFIT/LOSS'}
-                                                   value={`$${coin.profit.profit}`}
+                                                   value={`${coin.profit.profit}`}
                                                    className={`portfolio-overview-profit`}/>
                                         <Statistic prefix={'$'}
                                                    title={`${coin.profit.numberOfCoins} ${coin.symbol}`}

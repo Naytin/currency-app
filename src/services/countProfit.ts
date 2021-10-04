@@ -1,5 +1,5 @@
 import {CryptoCurrencyListing, QuoteType, TransactionType} from "./types";
-import {checkCost, reduceValue, returnToFixed} from "./helpers";
+import {checkCost, format, reduceValue, returnToFixed} from "./helpers";
 
 export const countProfit = (coins: CryptoCurrencyListing[]) => {
     return coins.map((coin) =>
@@ -16,10 +16,10 @@ const calculationOfProfit = (
     const numberOfCoins = reduceValue(transaction.map((tr) => +tr.coins));
     const totalValue = returnToFixed(reduceValue(transaction.map(tr => +tr.coins * price)),2);
     const cost = reduceValue(transaction.map(tr => +tr.coins * +tr.cost));
-    const profit = returnToFixed(totalValue - cost, 2);
-    const percentage = returnToFixed(checkCost(totalValue, cost),2);
+    const profit = format(totalValue - cost, '$');
+    const percentage = format(checkCost(totalValue, cost), '');
     const changes24h = percent_change_24h;
-    const changes = percentage >= 0;
+    const changes = checkCost(totalValue, cost) >= 0;
 
     return {
         id,

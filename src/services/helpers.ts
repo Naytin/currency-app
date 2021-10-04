@@ -19,3 +19,14 @@ export const checkCost = (value: number, cost: number) => {
 
     return (division - 1) * 100;
 };
+
+export const format = (profit: number,symbol: string) => {
+    if (profit < 0) {
+        return `-${symbol}${returnToFixed(profit,2).toString().slice(1, 6)}`;
+    }
+    if (profit > 0) {
+        return `+${symbol}${returnToFixed(profit,2)}`;
+    }
+
+    return `${symbol}${returnToFixed(profit,2)}`;
+};

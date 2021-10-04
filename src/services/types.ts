@@ -26,8 +26,8 @@ export type ProfitType = {
     numberOfCoins: number;
     totalValue: number;
     cost: number;
-    profit: number;
-    percentage: number;
+    profit: string;
+    percentage: string;
     price: number;
     changes24h: number;
     changes: boolean;

@@ -7,17 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 import {BrowserRouter} from "react-router-dom";
-import {getLocalStorage} from "./services/localStorage/getLocalStorage";
-import {setFromLocalStorage} from "./store/reducers/portfolioReducer";
-import {countProfit} from "./services/countProfit";
-
-//get data from local storage and put it into storage if data exists
-const localState = getLocalStorage('portfolio')
-if (localState.length > 0) {
-    //countProfit - function that calculates all coins, profits, changes and packs into an object
-    const calculatedProfit = countProfit(localState)
-    store.dispatch(setFromLocalStorage(calculatedProfit))
-}
 
 ReactDOM.render(
     <React.StrictMode>

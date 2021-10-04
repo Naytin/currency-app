@@ -23,13 +23,14 @@ const Currency = () => {
     //hook useParams returns an object of key/value pairs of URL parameters.
     const {tokenName} = useParams<ParamTypes>();
     //use actions
-    const {addTransaction, deleteTransaction} = useActions(portfolioActions);
+    const {addTransaction, deleteTransaction, updateDataFromLS} = useActions(portfolioActions);
     //use Selector
     const asset = useSelector<RootState, CryptoCurrencyListing[]>((state) => selectCurrency(state, tokenName));
 
     const createTransaction = (values: {coins: number, cost: number}) => {
         addTransaction({id: asset[0].id, ...values})
         setVisible(false);
+        updateDataFromLS();
     };
 
     function showConfirm(uuid: string) {
@@ -38,6 +39,7 @@ const Currency = () => {
             icon: <ExclamationCircleOutlined />,
             onOk() {
                 deleteTransaction({uuid, id: asset[0].id})
+                updateDataFromLS();
             },
             onCancel() {
                 console.log('Cancel');
